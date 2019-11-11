@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<!--根元素 -->
+<struts>
+	<!--导入一个配置文件，通过这种方式可以将Struts2的Action按模块配置到多个配置文件中。 -->
+	<!-- 所有的Action配置都应该放在package下 ，name定义包名，extends定义继承包空间struts-default。 -->
+	<package name="zzf" extends="struts-default">
+		<!--对一个Action配置，可以有多对；name是对业务控制器命名，在表单中指定的地址；class指定类的位置。 -->
+		<action name="login" class="com.cslg.action.LoginAction">
+			<!-- 定义两个逻辑视图和物理资源之间的映射 ，name值是Action中返回的结果 -->
+			<result name="error">/login.jsp</result>
+			<result name="success">/success.jsp</result>
+		</action>
+		<action name="regist" class="com.cslg.action.RegistAction">
+			<!-- 定义两个逻辑视图和物理资源之间的映射 ，name值是Action中返回的结果 -->
+			<result name="error">/regist.jsp</result>
+			<result name="success">/registsuccess.jsp</result>
+		</action>
+		<action name="jump" class="com.cslg.action.UserAction">
+			<!-- 定义两个逻辑视图和物理资源之间的映射 ，name值是Action中返回的结果 -->
+			<result name="success">/success.jsp</result>
+		</action>
+	</package>
+</struts>
