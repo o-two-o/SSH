@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<!--根元素 -->
+<struts>
+	<constant name="struts.custom.i18n.resources" value="globalMessages" /> 
+    <constant name="struts.i18n.encoding" value="utf-8" /> 
+	<!--导入一个配置文件，通过这种方式可以将Struts2的Action按模块配置到多个配置文件中。 -->
+	<!-- 所有的Action配置都应该放在package下 ，name定义包名，extends定义继承包空间struts-default。 -->
+	<package name="counter" extends="struts-default">
+		<!--对一个Action配置，可以有多对；name是对业务控制器命名，在表单中指定的地址；class指定类的位置。 -->
+		<action name="counter" class="action.CounterAction">
+			<!-- 定义两个逻辑视图和物理资源之间的映射 ，name值是Action中返回的结果 -->
+			<result name="success">/index.jsp</result>
+		</action>
+		<action name="IoCAction" class="action.IoCAction">
+			<!-- 定义两个逻辑视图和物理资源之间的映射 ，name值是Action中返回的结果 -->
+			<result name="success">/loginsuccess.jsp</result>
+			<result name="error">/login.jsp</result>
+		</action>
+		<action name="loginAction" class="com.cslg.action.userAction"
+			method="login">
+			<result name="success">/3/success.jsp</result>
+		</action>
+		<action name="registAction" class="com.cslg.action.userAction"
+			method="regist">
+			<result name="success">/3/regist_info.jsp</result>
+		</action>
+		<action name="checkLogin" class="loginAction.LoginAction">
+            <result name="success">/I18N/loginSuccess.jsp</result> 
+            <result name="error">/I18N/login.jsp</result>
+        </action>
+        <action name="register1" class="validate.RegistAction1">
+            <result name="input">/validate/register1.jsp</result> 
+            <result name="success">/validate/success.jsp</result> 
+        </action>
+        <action name="upLoad" class="fileUpDown.UploadAction">
+            <!--fileUpload拦截器配置-->
+            <interceptor-ref name="fileUpload">
+                <!--设置上传文件的最大字节数-->
+                <param name="maximumSize">10000000</param>
+                <!--设置上传文件的类型-->
+                <param name="allowedTypes">
+                    image/gif,image/png,image/jpeg,image/jpg,image/pjpeg
+                </param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+            <!--设置上传文件保持的文件夹-->
+            <param name="savePath">/save</param>
+            <result name="input">/fileUpDown/fileUp.jsp</result> 
+            <result name="success">/fileUpDown/fileUpSuccess.jsp</result> 
+        </action>
+        <action name="fileDownload" class="fileUpDown.FileDownload">
+            <!--设置文件所在的位置，需要在项目中夹一个名为download的文件夹，位置参考图3-31，该文件夹有一个风景.jpg -->
+            <param name="path">/download/风景.jpg</param>
+            <!--设置stream属性-->
+            <result name="success" type="stream">
+		<!--设置stream对应的参数-->
+    		<param name="contentType">image/jpg</param>
+		<param name="inputName">inputStream</param>
+		<param name="contentDisposition">attachment;filename="hlm.jpg"</param>
+		<param name="bufferSize">40960</param>
+            </result>
+        </action>
+	</package>
+</struts>
