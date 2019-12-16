@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="PO">
+  <class name="Orders" table="orders">
+    <id column="ID" name="id" type="integer">
+      <generator class="identity"/>
+    </id>
+    <property column="ORDERNO" name="orderno" type="string"/>
+    <property column="MONEY" name="money" type="double"/>
+    <!--一对多双向关联映射的多的一方配置-->
+    <many-to-one class="PO.Customer" column="CUSTOMER_ID" lazy="false" name="customer" not-null="true"/>
+  </class>
+</hibernate-mapping>
